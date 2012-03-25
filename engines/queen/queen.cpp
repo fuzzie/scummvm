@@ -30,6 +30,7 @@
 #include "common/system.h"
 #include "common/events.h"
 #include "common/textconsole.h"
+#include "common/translation.h"
 
 #include "engines/util.h"
 
@@ -54,6 +55,13 @@ static const PlainGameDescriptor queenGameDescriptor = {
 	"queen", "Flight of the Amazon Queen"
 };
 
+static const ExtraGuiOption queenExtraGuiOption = {
+	_s("Floppy intro"),
+	_s("Use the floppy version's intro (CD version only)"),
+	"alt_intro",
+	false
+};
+
 class QueenMetaEngine : public MetaEngine {
 public:
 	virtual const char *getName() const;
@@ -61,6 +69,7 @@ public:
 
 	virtual bool hasFeature(MetaEngineFeature f) const;
 	virtual GameList getSupportedGames() const;
+	virtual const ExtraGuiOptions getExtraGuiOptions(const Common::String &target) const;
 	virtual GameDescriptor findGame(const char *gameid) const;
 	virtual GameList detectGames(const Common::FSList &fslist) const;
 	virtual SaveStateList listSaves(const char *target) const;
@@ -94,6 +103,19 @@ GameList QueenMetaEngine::getSupportedGames() const {
 	GameList games;
 	games.push_back(queenGameDescriptor);
 	return games;
+}
+
+const ExtraGuiOptions QueenMetaEngine::getExtraGuiOptions(const Common::String &target) const {
+	Common::String guiOptions;
+	if (ConfMan.hasKey("guioptions", target)) {
+		guiOptions = ConfMan.get("guioptions", target);
+		guiOptions = parseGameGUIOptions(guiOptions);
+	}
+
+	ExtraGuiOptions options;
+	if (!guiOptions.contains(GUIO_NOSPEECH))
+		options.push_back(queenExtraGuiOption);
+	return options;
 }
 
 GameDescriptor QueenMetaEngine::findGame(const char *gameid) const {

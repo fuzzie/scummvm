@@ -2108,7 +2108,7 @@ void AGSEngine::postScriptCleanup() {
 	}
 
 	for (uint i = 0; i < wasRunning._pendingScripts.size(); ++i) {
-		PendingScript &script = wasRunning._pendingScripts[i];
+		//PendingScript &script = wasRunning._pendingScripts[i];
 
 		// FIXME
 
