@@ -539,7 +539,7 @@ void ccInstance::runCodeFrom(uint32 start) {
 		}
 		debug(4, " ");
 
-		const RuntimeValue &val1 = argVal[0], &val2 = argVal[1];
+		const RuntimeValue /*&val1 = argVal[0], */&val2 = argVal[1];
 		int32 int1 = (int)argVal[0]._value, int2 = (int)argVal[1]._value;
 
 		// temporary variables
@@ -576,7 +576,7 @@ void ccInstance::runCodeFrom(uint32 start) {
 					error("script tried using WRITELIT unsafely on stack (%d bytes of %d) on line %d",
 						int1, int2, _lineNumber);
 				// FIXME: check bounds
-				for (uint i = 0; i < int1; ++i)
+				for (int i = 0; i < int1; ++i)
 					_stack[i + _registers[SREG_MAR]._value].invalidate();
 				break;
 			}

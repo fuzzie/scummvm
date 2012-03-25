@@ -386,7 +386,7 @@ bool GameFile::init() {
 		int optionFlags[MAXTOPICOPTIONS];
 		for (uint j = 0; j < MAXTOPICOPTIONS; ++j)
 			optionFlags[j] = dta->readUint32LE();
-		bool hasScripts = (bool)dta->readUint32LE();
+		/*bool hasScripts = (bool)*/dta->readUint32LE();
 		uint16 entryPoints[MAXTOPICOPTIONS];
 		for (uint j = 0; j < MAXTOPICOPTIONS; ++j)
 			entryPoints[j] = dta->readUint16LE();
