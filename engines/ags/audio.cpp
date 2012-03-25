@@ -302,7 +302,8 @@ bool AudioChannel::playSound(AudioClip *clip) {
 		byte rawFlags;
 		if (Audio::loadWAVFromStream(*stream, size, rate, rawFlags))
 			_stream = Audio::makeRawStream(stream->readStream(size), rate, rawFlags);
-		Audio::makeWAVStream(stream, DisposeAfterUse::YES);
+		else
+			error("AudioChannel::playSound: Couldn't load WAV from stream");
 		}
 		break;
 #ifdef USE_MAD
